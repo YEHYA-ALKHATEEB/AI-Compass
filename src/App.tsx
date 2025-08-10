@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Search, ExternalLink } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Search } from 'lucide-react';
 import { aiTools } from './data/aiTools';
 import { CategorySection } from './components/CategorySection';
 import { FilterTabs } from './components/FilterTabs';
