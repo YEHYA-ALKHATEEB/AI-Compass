@@ -1,41 +1,42 @@
-import { useState, useMemo } from 'react';
-import { Search } from 'lucide-react';
-import { aiTools } from './data/aiTools';
-import { CategorySection } from './components/CategorySection';
-import { FilterTabs } from './components/FilterTabs';
-import { StatsSection } from './components/StatsSection';
-import Footer from './components/Footer';
+import { useState, useMemo } from "react";
+import { Search } from "lucide-react";
+import { aiTools } from "../data/aiTools";
+import { CategorySection } from "../components/CategorySection";
+import { FilterTabs } from "../components/FilterTabs";
+import { StatsSection } from "../components/StatsSection";
+import { AITool } from "../types";
 
-function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState('all');
+export default function Home() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeCategory, setActiveCategory] = useState("all");
 
   const categories = [
-    'all', 'writing', 'coding', 'design', 'productivity', 
-    'research', 'media', 'business', 'education', 'healthcare'
+    "all", "writing", "coding", "design", "productivity", 
+    "research", "media", "business", "education", "healthcare"
   ];
 
   const filteredTools = useMemo(() => {
     return aiTools.filter(tool => {
-      const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           tool.features.some(feature => feature.toLowerCase().includes(searchTerm.toLowerCase()));
-      
-      const matchesCategory = activeCategory === 'all' || tool.category === activeCategory;
-      
+      const matchesSearch =
+        tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tool.features.some(feature => feature.toLowerCase().includes(searchTerm.toLowerCase()));
+
+      const matchesCategory = activeCategory === "all" || tool.category === activeCategory;
+
       return matchesSearch && matchesCategory;
     });
   }, [searchTerm, activeCategory]);
 
   const groupedTools = useMemo(() => {
-    if (activeCategory !== 'all') {
+    if (activeCategory !== "all") {
       return { [activeCategory]: filteredTools };
     }
-    
-    return categories.slice(1).reduce((acc, category) => {
+
+    return categories.slice(1).reduce((acc: Record<string, AITool[]>, category) => {
       acc[category] = filteredTools.filter(tool => tool.category === category);
       return acc;
-    }, {} as Record<string, typeof aiTools>);
+    }, {});
   }, [filteredTools, activeCategory, categories]);
 
   const totalTools = aiTools.length;
@@ -46,7 +47,7 @@ function App() {
         {/* Header */}
         <header className="text-center mb-15 text-white">
           <h1 className="text-5xl lg:text-6xl font-bold mb-5 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent drop-shadow-lg">
-             AI Compass
+            Lumina AI
           </h1>
           <p className="text-xl lg:text-2xl opacity-90 max-w-4xl mx-auto leading-relaxed">
             Illuminate your path to the perfect AI tools for every need - Over {totalTools}+ curated AI solutions organized and ready to explore
@@ -81,7 +82,7 @@ function App() {
         {searchTerm && (
           <div className="text-center text-white/90 mb-8">
             <p className="text-lg">
-              Found {filteredTools.length} tool{filteredTools.length !== 1 ? 's' : ''} matching "{searchTerm}"
+              Found {filteredTools.length} tool{filteredTools.length !== 1 ? "s" : ""} matching "{searchTerm}"
             </p>
           </div>
         )}
@@ -90,9 +91,9 @@ function App() {
         <div className="space-y-12">
           {Object.entries(groupedTools).map(([category, tools]) => {
             if (tools.length === 0) return null;
-            
+
             return (
-              <CategorySection 
+              <CategorySection
                 key={category}
                 category={category}
                 tools={tools}
@@ -110,7 +111,7 @@ function App() {
                 Try searching for a different term or browse our categories above.
               </p>
               <button
-                onClick={() => setSearchTerm('')}
+                onClick={() => setSearchTerm("")}
                 className="px-8 py-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/30 transition-all duration-300"
               >
                 Clear Search
@@ -118,10 +119,7 @@ function App() {
             </div>
           </div>
         )}
-        <Footer />
       </div>
     </div>
   );
 }
-
-export default App;

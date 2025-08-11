@@ -14,7 +14,8 @@ export const FilterTabs: React.FC<FilterTabsProps> = ({
 }) => {
   const getCategoryName = (category: string) => {
     if (category === 'all') return 'All Tools';
-    return category.charAt(0).toUpperCase() + category.slice(1);
+    const categoryName = category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1');
+    return categoryName === 'Writing' ? 'Writing & Content' : categoryName;
   };
 
   return (
