@@ -4,6 +4,7 @@ import { aiTools } from './data/aiTools';
 import { CategorySection } from './components/CategorySection';
 import { FilterTabs } from './components/FilterTabs';
 import { StatsSection } from './components/StatsSection';
+import { AITool } from './types';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,11 +32,12 @@ function App() {
       return { [activeCategory]: filteredTools };
     }
     
-    return categories.slice(1).reduce((acc, category) => {
-      acc[category] = filteredTools.filter(tool => tool.category === category);
-      return acc;
-    }, {} as Record<string, typeof aiTools>);
-  }, [filteredTools, activeCategory, categories]);
+    const result: Record<string, AITool[]> = {};
+    categories.slice(1).forEach(category => {
+      result[category] = filteredTools.filter(tool => tool.category === category);
+    });
+    return result;
+  }, [filteredTools, activeCategory]);
 
   const totalTools = aiTools.length;
 
