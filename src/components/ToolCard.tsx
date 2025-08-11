@@ -7,10 +7,15 @@ interface ToolCardProps {
 }
 
 export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
-  const pricingColors = {
+  const pricingColors: Record<string, string> = {
     free: 'bg-green-100 text-green-700',
     freemium: 'bg-orange-100 text-orange-700',
     paid: 'bg-blue-100 text-blue-700'
+  };
+
+  const handleLinkClick = (e: React.MouseEvent) => {
+    // Ensure the link opens properly
+    e.stopPropagation();
   };
 
   return (
@@ -47,6 +52,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
           href={tool.url}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={handleLinkClick}
           className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-3 px-6 rounded-full font-semibold text-center hover:from-indigo-600 hover:to-purple-600 hover:shadow-lg hover:transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
         >
           Try {tool.name}
