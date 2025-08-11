@@ -46,14 +46,36 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
       <div className="max-w-7xl mx-auto px-5 py-10 lg:px-8">
         {/* Header */}
-        <header className="text-center mb-15 text-white">
-          <h1 className="text-5xl lg:text-6xl font-bold mb-5 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent drop-shadow-lg">
-             AI Compass
-          </h1>
-          <p className="text-xl lg:text-2xl opacity-90 max-w-4xl mx-auto leading-relaxed">
-            Illuminate your path to the perfect AI tools for every need - Over {totalTools}+ curated AI solutions organized and ready to explore
-          </p>
-        </header>
+       <header className="text-center mb-15 text-white">
+  {/* Author & Socials */}
+  <div className="flex flex-col items-center gap-2 mb-6">
+    <span className="text-sm lg:text-base text-blue-100/80 italic">
+      Done by <span className="font-semibold">Yehya Alkhateeb</span> – Helping people find the perfect AI tools beautifully
+    </span>
+    <div className="flex gap-4">
+      <a href="https://www.linkedin.com/in/yehya-alkhateeb" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+        <i className="fab fa-linkedin text-blue-400 text-xl"></i>
+      </a>
+      <a href="https://github.com/YehyaAlkhateeb" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+        <i className="fab fa-github text-gray-300 text-xl"></i>
+      </a>
+      <a href="mailto:yehya.alkhateeb@gmail.com" className="hover:scale-110 transition-transform">
+        <i className="fas fa-envelope text-red-400 text-xl"></i>
+      </a>
+    </div>
+  </div>
+
+  {/* Title */}
+  <h1 className="text-5xl lg:text-6xl font-bold mb-5 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent drop-shadow-lg">
+    AI Compass
+  </h1>
+
+  {/* Subtitle */}
+  <p className="text-xl mb-4 lg:text-2xl opacity-90 max-w-4xl mx-auto leading-relaxed">
+    Illuminate your path to the perfect AI tools for every need — Over {totalTools}+ curated AI solutions organized and ready to explore.
+  </p>
+</header>
+
 
         {/* Stats Section */}
         <StatsSection totalTools={totalTools} />
